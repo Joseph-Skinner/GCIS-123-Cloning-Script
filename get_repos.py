@@ -1,11 +1,14 @@
-#!/usr/bin/env python3
 
 import subprocess
 import os
 import csv
+from dotenv import load_dotenv
 
-DATA_FILE = '/Users/josephskinner/scripts/RIT/GCIS123/cloning/data/classroom_roster.csv'
-CLASSROOM_LINK = 'git@github.com:GCIS-123-Fall2024/unit$%-'
+load_dotenv()
+CLASSROOM_LINK = os.getenv("CLASSROOM_LINK")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+DATA_FILE = os.path.join(script_dir, 'data', 'classroom_roster.csv')
+
 
 
 def get_student_links(unit_number):
@@ -20,9 +23,8 @@ def get_student_links(unit_number):
             ret_links.append(formatted_url)
     return ret_links
 
-def get_repos():
+def get_repos(unit_number):
     current_dir = os.getcwd()
-    unit_number = input('Unit#: ')
     student_links = get_student_links(unit_number)
     for repo in student_links:
         print(repo+'\n')
@@ -32,7 +34,20 @@ def get_repos():
                       )
 
 def main():
-    get_repos()
+    
+    while True:
+        try:
+           unit_number = input("Unit#: ")
+           if unit_number.isalpha():
+               raise ValueError
+           if len(unit_number) != 2:
+               raise ValueError
+           break
+        except:
+            print("Unit must be two digits within 01-13")
+            continue
+        
+    get_repos(str(unit_number))
 
 if __name__ == '__main__':
     main()
