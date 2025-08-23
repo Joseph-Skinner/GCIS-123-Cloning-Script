@@ -4,6 +4,13 @@ import os
 import csv
 from dotenv import load_dotenv
 
+"""
+IMPORTANT PREREQUISITE
+YOU MUST ADD AN SSH KEY TO YOUR GITHUB ACCOUNT TO CLONE INTO EACH STUDENT'S REPO
+PLS FOLLOW THE BELOW LINK FOR INSTRUCTIONS
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+"""
+
 load_dotenv()
 CLASSROOM_LINK = os.getenv("CLASSROOM_LINK")
 script_dir = os.path.dirname(os.path.abspath(__file__))
