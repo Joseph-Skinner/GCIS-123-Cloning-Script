@@ -12,6 +12,15 @@ DATA_FILE = os.path.join(script_dir, 'data', 'classroom_roster.csv')
 
 
 def get_student_links(unit_number):
+    """
+    Creates the unique github classroom links per student per unit \n
+
+    Args: \n
+    \tunit_number (str) : string representation of the currently used unit number \n
+
+    Returns: \n
+    \tAn array of strings of GH classroom links to be used to clone repos
+    """
     with open(DATA_FILE) as file:
         reader = csv.reader(file)
         ret_links = []
@@ -24,6 +33,16 @@ def get_student_links(unit_number):
     return ret_links
 
 def get_repos(unit_number):
+    """
+    Uses the command line and student gh classroom links to clone repos
+    Will cone to the current directory \n 
+
+    Args: 
+    \tunit_number (str) : string representation of the currently used unit number \n
+
+    Returns: \n
+   \tNone 
+    """
     current_dir = os.getcwd()
     student_links = get_student_links(unit_number)
     for repo in student_links:
@@ -34,7 +53,8 @@ def get_repos(unit_number):
                       )
 
 def main():
-    
+
+    #Unit numbers must be a two digit string to add to the repo links    
     while True:
         try:
            unit_number = input("Unit#: ")
