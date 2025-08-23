@@ -9,6 +9,9 @@ IMPORTANT PREREQUISITE
 YOU MUST ADD AN SSH KEY TO YOUR GITHUB ACCOUNT TO CLONE INTO EACH STUDENT'S REPO
 PLS FOLLOW THE BELOW LINK FOR INSTRUCTIONS
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
+YOU MUST CREATE A .env FILE TO STORE THE CLASSROOM LINK in the format
+CLASSROOM_LINK="INSERT LINK WITHIN QUOTES HERE"
 """
 
 load_dotenv()
