@@ -8,14 +8,22 @@ from dotenv import load_dotenv
 IMPORTANT PREREQUISITE
 YOU MUST ADD AN SSH KEY TO YOUR GITHUB ACCOUNT TO CLONE INTO EACH STUDENT'S REPO
 PLS FOLLOW THE BELOW LINK FOR INSTRUCTIONS
+
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 
-YOU MUST CREATE A .env FILE TO STORE THE CLASSROOM LINK in the format
+YOU MUST CREATE A .env FILE TO STORE THE CLASSROOM LINK IN THE FORMAT:
+
 CLASSROOM_LINK="INSERT LINK WITHIN QUOTES HERE"
+
+AND THE SECTION NUMBER IN THE FORMAT:
+
+SECTION_NUMBER="INSERT NUMBER WITHIN QUOTES HERE AS A TWO DIGIT STRING"
+
 """
 
 load_dotenv()
 CLASSROOM_LINK = os.getenv("CLASSROOM_LINK")
+SECTION_NUMBER = os.getenv("SECTION_NUMBER")
 script_dir = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(script_dir, 'data', 'classroom_roster.csv')
 
@@ -34,12 +42,17 @@ def get_student_links(unit_number):
     with open(DATA_FILE) as file:
         reader = csv.reader(file)
         ret_links = []
+        count = 0
         next(reader) 
         for line in reader:
-            student_username = line[1]
-            formatted_url = CLASSROOM_LINK + student_username
-            formatted_url = formatted_url.replace('$%', unit_number)
-            ret_links.append(formatted_url)
+            if line[0].startswith(SECTION_NUMBER):
+                student_username = line[1]
+                formatted_url = f"{CLASSROOM_LINK}unit{unit_number}-{student_username}"
+                ret_links.append(formatted_url)
+                count += 1
+    print("*"*10)
+    print(str(count) + "students found")
+    print("*"*10)
     return ret_links
 
 def get_repos(unit_number):
