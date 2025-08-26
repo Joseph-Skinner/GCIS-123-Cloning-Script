@@ -50,9 +50,6 @@ def get_student_links(unit_number):
                 formatted_url = f"{CLASSROOM_LINK}unit{unit_number}-{student_username}"
                 ret_links.append(formatted_url)
                 count += 1
-    print("*"*10)
-    print(str(count) + "students found")
-    print("*"*10)
     return ret_links
 
 def get_repos(unit_number):
